@@ -28,9 +28,7 @@ button.choice {
     cursor: pointer;
     border: 2px solid #ddd;
     border-radius: 5px;
-    background-color: black;
     transition: background-color 0.3s;
-    color: white;
 }
 
 button.choice:hover {
