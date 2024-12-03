@@ -30,6 +30,7 @@ button.choice {
     border-radius: 5px;
     background-color: black;
     transition: background-color 0.3s;
+    color: white;
 }
 
 button.choice:hover {
