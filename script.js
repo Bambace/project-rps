@@ -5,7 +5,7 @@ const maxScore = 3;
 
 // Función para obtener la elección aleatoria de la computadora
 function obtenerEleccionComputadora() {
-    const opciones = ['piedra', 'papel', 'tijera'];
+    const opciones = ['rock', 'paper', 'scissor'];
     const indiceAleatorio = Math.floor(Math.random() * 3);
     return opciones[indiceAleatorio];
 }
@@ -13,30 +13,30 @@ function obtenerEleccionComputadora() {
 // Función para determinar el ganador de una ronda
 function determinarGanador(eleccionJugador, eleccionComputadora) {
     if (eleccionJugador === eleccionComputadora) {
-        return '¡Es un empate!';
+        return "¡It's a tie!";
     }
     if (
-        (eleccionJugador === 'piedra' && eleccionComputadora === 'tijera') ||
-        (eleccionJugador === 'papel' && eleccionComputadora === 'piedra') ||
-        (eleccionJugador === 'tijera' && eleccionComputadora === 'papel')
+        (eleccionJugador === 'rock' && eleccionComputadora === 'scissor') ||
+        (eleccionJugador === 'paper' && eleccionComputadora === 'rock') ||
+        (eleccionJugador === 'scissor' && eleccionComputadora === 'paper')
     ) {
         playerScore++;
-        return '¡Ganaste esta ronda!';
+        return '¡You win this round!';
     } else {
         computerScore++;
-        return '¡Perdiste esta ronda!';
+        return '¡You lost this round!';
     }
 }
 
 // Asignar los eventos a los botones
 document.getElementById('piedra').addEventListener('click', function() {
-    jugar('piedra');
+    jugar('rock');
 });
 document.getElementById('papel').addEventListener('click', function() {
-    jugar('papel');
+    jugar('paper');
 });
 document.getElementById('tijera').addEventListener('click', function() {
-    jugar('tijera');
+    jugar('scissor');
 });
 
 // Función que ejecuta el juego por ronda
@@ -49,9 +49,9 @@ function jugar(eleccionJugador) {
 
         // Comprobar si alguien ha ganado la partida
         if (playerScore === maxScore) {
-            mostrarResultadoFinal("¡Felicidades, ganaste el mejor de 3!");
+            mostrarResultadoFinal("¡Congratulations, you won the best of 3!");
         } else if (computerScore === maxScore) {
-            mostrarResultadoFinal("La computadora ganó el mejor de 3. ¡Inténtalo de nuevo!");
+            mostrarResultadoFinal("The computer won the best of 3. Try again!");
         }
     }
 }
@@ -59,7 +59,15 @@ function jugar(eleccionJugador) {
 // Función para mostrar el resultado de una ronda
 function mostrarResultado(resultado, eleccionJugador, eleccionComputadora) {
     const resultText = document.getElementById('resultText');
-    resultText.innerHTML = `Tu elección: ${eleccionJugador}<br>Computadora eligió: ${eleccionComputadora}<br>${resultado}`;
+    resultText.innerHTML = `Your choice: ${eleccionJugador}<br>Computer chose: ${eleccionComputadora}<br>${resultado}`;
+
+    if (resultado.includes('¡You win')) {
+        resultText.style.color = 'green'; // Verde si gana el jugador
+    } else if (resultado.includes('¡You lost')) {
+        resultText.style.color = 'red'; // Rojo si gana la computadora
+    } else {
+        resultText.style.color = 'blue'; // Azul si es empate
+    }
 }
 
 // Función para actualizar el puntaje en el HTML
@@ -72,6 +80,12 @@ function actualizarPuntaje() {
 function mostrarResultadoFinal(mensaje) {
     const resultText = document.getElementById('resultText');
     resultText.innerHTML = mensaje;
+
+    if (mensaje.includes('Congratulations')) {
+        resultText.style.color = 'green'; // Verde si gana el jugador
+    } else {
+        resultText.style.color = 'red'; // Rojo si gana la computadora
+    }
 }
 
 // Evento para el botón de reinicio
@@ -82,5 +96,5 @@ function reiniciarJuego() {
     playerScore = 0;
     computerScore = 0;
     actualizarPuntaje();
-    document.getElementById('resultText').textContent = "El juego ha sido reiniciado. ¡Buena suerte!";
+    document.getElementById('resultText').textContent = "The game has been reset. Good luck!";
 }
